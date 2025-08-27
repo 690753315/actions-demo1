@@ -1,0 +1,19 @@
+# 监听push 事件
+on: push
+
+# 任务
+jobs:
+  # 任务1
+  job1:
+    # 运行环境 运行在github提供的ubuntu最新镜像
+    runs-on: ubuntu-latest
+    steps:
+    # 运行命令
+    - run: pwd
+    - run: ls
+  job2:
+    # 运行环境 运行在github提供的window最新镜像
+    runs-on: windows-latest
+    steps:
+    # 运行命令
+    - run: node --version
