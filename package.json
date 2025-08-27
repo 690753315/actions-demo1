@@ -1,4 +1,5 @@
 {
+  "homepage": ".",
   "name": "actions-demo1",
   "private": true,
   "version": "0.0.0",
