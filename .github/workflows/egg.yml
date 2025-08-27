@@ -35,5 +35,6 @@ jobs:
       with:
         # 打包后代码存放的分支
         branch: gh-pages
+        # vite打包后的目录，将目录代码放到gh-pages分支
         folder: dist
 
