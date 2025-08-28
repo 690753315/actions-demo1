@@ -28,6 +28,7 @@ jobs:
       run: |
         npm install
         npm run build
+        mv dist dist_bak
 
     # - name: 部署到github pages
     #   # 借助 github-pages-deploy-action@v4 部署
