@@ -41,11 +41,19 @@ jobs:
     #     folder: dist
 
     - name: 复制代码到服务器
+      # 借助 appleboy/scp-action@master ssh连接服务器、上传文件
       uses: appleboy/scp-action@master
+      # ssh连接服务器的配置参数
       with:
+        # 服务器ip
         host: ${{ secrets.REMOTE_HOST }}
+        # 用户名
         username: ${{ secrets.REMOTE_USER }}
+        # 密码
         password: ${{ secrets.REMOTE_PASS }}
+        # 端口 固定22
         port: 22
-        source: 'dist/'
+        # 要上传的文件   打包后的dist_bak文件
+        source: 'dist_bak/'
+        # 服务器存放目录
         target: ${{ secrets.REMOTE_TARGET }}
