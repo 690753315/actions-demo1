@@ -1,7 +1,10 @@
 name: 打包vue项目
 
-# 监听push 事件
-on: push
+# 监听到master分支的提交动作后，就执行下面的jobs下的指令
+on:
+  push:
+    branches:
+      - master
 
 # 仓库权限
 permissions:
