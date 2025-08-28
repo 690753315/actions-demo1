@@ -23,37 +23,44 @@ jobs:
       # 借助 actions/checkout@v4 读取代码，复制到ubuntu系统里
       uses: actions/checkout@v4
 
-    - name: 安装依赖 并 打包
-      # 执行指令
-      run: |
-        npm install
-        npm run build
-        mv dist dist_bak
 
-    # - name: 部署到github pages
-    #   # 借助 github-pages-deploy-action@v4 部署
-    #   uses: JamesIves/github-pages-deploy-action@v4
-    #   #  JamesIves/github-pages-deploy-action@v4 的配置参数
-    #   with:
-    #     # 打包后代码存放的分支
-    #     branch: gh-pages
-    #     # vite打包后的目录，将目录代码放到gh-pages分支
-    #     folder: dist
-
-    - name: 复制代码到服务器
-      # 借助 appleboy/scp-action@master ssh连接服务器、上传文件
-      uses: appleboy/scp-action@master
-      # ssh连接服务器的配置参数
+    - name: 登录Docker Hub
+      # 借助 docker/login-action 部署
+      uses: docker/login-action@v3
+      #  docker/login-action 的配置参数
       with:
-        # 服务器ip
-        host: ${{ secrets.REMOTE_HOST }}
-        # 用户名
-        username: ${{ secrets.REMOTE_USER }}
-        # 密码
-        password: ${{ secrets.REMOTE_PASS }}
-        # 端口 固定22
-        port: 22
-        # 要上传的文件   打包后的dist_bak文件
-        source: 'dist_bak/'
-        # 服务器存放目录
-        target: ${{ secrets.REMOTE_TARGET }}
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: 构建并推送到镜像仓库
+      # 借助 docker/build-push-action
+      uses: docker/build-push-action@v5
+      #  docker/build-push-action 的配置参数
+      with:
+        push: true
+        tags: 690753315/actions-demo1:latest
+
+    # ---------------------------------------------------------
+    #
+    #
+    # ---------------------------------------------------------
+    # 参考视频 https://www.bilibili.com/video/BV1Ca411h7rx/?spm_id_from=333.788.top_right_bar_window_history.content.click&vd_source=a77cda34da2955fdc0a4878af550d438
+    # !  部署到github pages
+    # - name: 复制代码到服务器
+    #   # 借助 appleboy/scp-action@master ssh连接服务器、上传文件
+    #   uses: appleboy/scp-action@master
+    #   # ssh连接服务器的配置参数
+    #   with:
+    #     # 服务器ip
+    #     host: ${{ secrets.REMOTE_HOST }}
+    #     # 用户名
+    #     username: ${{ secrets.REMOTE_USER }}
+    #     # 密码
+    #     password: ${{ secrets.REMOTE_PASS }}
+    #     # 端口 固定22
+    #     port: 22
+    #     # 要上传的文件   打包后的dist_bak文件
+    #     source: 'dist_bak/'
+    #     # 服务器存放目录
+    #     target: ${{ secrets.REMOTE_TARGET }}
+    # ---------------------------------------------------------
