@@ -8,7 +8,7 @@ pipeline {
             steps {
                 echo '---------------------拉取代码----------------------'
 
-                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '94051b45-93ce-41b3-ba88-b6d9ec375c35', url: 'https://github.com/690753315/actions-demo1/']])
+                checkout scmGit(branches: [[name: '*/${branch}']], extensions: [], userRemoteConfigs: [[credentialsId: '94051b45-93ce-41b3-ba88-b6d9ec375c35', url: 'https://github.com/690753315/actions-demo1/']])
             }
         }
         // 第二个步骤
